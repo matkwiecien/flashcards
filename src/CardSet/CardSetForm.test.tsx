@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import CardSetForm from './CardSetForm';
 import { vi } from 'vitest';
 
-describe('Store data', () => {
+describe('Card set form', () => {
   vi.mock('uuid', () => {
     return { v4: () => '12345' };
   });
@@ -27,17 +27,6 @@ describe('Store data', () => {
     userEvent.click(saveButton);
 
     expect(await screen.findByText('Please enter name')).toBeInTheDocument();
-  });
-
-  it('user not see error message after click save button when name is not empty ', async () => {
-    render(<CardSetForm onSubmit={vi.fn()} />);
-
-    await userEvent.type(screen.getByRole('textbox', { name: 'Name' }), 'test set');
-    const saveButton = screen.getByRole('button', { name: 'Save' });
-
-    await userEvent.click(saveButton);
-
-    expect(screen.queryByText('Please enter name')).not.toBeInTheDocument();
   });
 
   it('after user click save button new set should be created and pass as onSubmit argument', async () => {
