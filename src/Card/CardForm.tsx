@@ -1,9 +1,12 @@
-import { Button } from '@mui/material';
+import { Box, Button, CardContent, Grid, Card } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-mui';
 import * as yup from 'yup';
-import { Card } from './interfaces';
+import { TCard } from './interfaces';
+import { columnLayout } from '../style/composition';
+import CardTitle from '../common/CardTitle';
+import FormLayout from '../common/FormLayout';
 
 const CardSchema = yup.object().shape({
   question: yup.string().required('Please enter question'),
@@ -11,10 +14,10 @@ const CardSchema = yup.object().shape({
 });
 
 type CardFormProp = {
-  onSubmit: (card: Card) => void;
+  onSubmit: (card: TCard) => void;
 };
 
-const Card = ({ onSubmit }: CardFormProp) => {
+const CardForm = ({ onSubmit }: CardFormProp) => {
   return (
     <Formik
       initialValues={{
@@ -34,13 +37,27 @@ const Card = ({ onSubmit }: CardFormProp) => {
     >
       {({ isSubmitting }) => (
         <Form>
-          <Field component={TextField} label="Question" name="question" disabled={isSubmitting} />
-          <Field component={TextField} label="Response" name="response" disabled={isSubmitting} />
-          <Button type="submit">Save</Button>
+          <FormLayout>
+            <Box>
+              <CardTitle>Crate new flashcard</CardTitle>
+            </Box>
+            <Box>
+              <Field component={TextField} label="Question" name="question" disabled={isSubmitting} fullWidth />
+            </Box>
+            <Box>
+              <Field component={TextField} label="Response" name="response" disabled={isSubmitting} fullWidth />
+            </Box>
+
+            <Box>
+              <Button type="submit" variant="contained">
+                Save
+              </Button>
+            </Box>
+          </FormLayout>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default Card;
+export default CardForm;

@@ -11,3 +11,9 @@ export const centerContainer = {
   justifyContent: 'center',
   alignItems: 'center',
 };
+
+export const columnLayout = {
+  '& > * + *': {
+    mt: 2,
+  },
+};

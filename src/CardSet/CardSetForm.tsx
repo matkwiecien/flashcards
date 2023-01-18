@@ -1,9 +1,11 @@
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-mui';
 import * as yup from 'yup';
 import { CardSet } from './interfaces';
+import FormLayout from '../common/FormLayout';
+import CardTitle from '../common/CardTitle';
 
 const CardSetSchema = yup.object().shape({
   name: yup.string().required('Please enter name'),
@@ -33,8 +35,15 @@ const CardSetForm = ({ onSubmit }: CardSetFormProp) => {
     >
       {({ isSubmitting }) => (
         <Form>
-          <Field component={TextField} label="Name" name="name" disabled={isSubmitting} />
-          <Button type="submit">Save</Button>
+          <FormLayout>
+            <CardTitle>Create flashcard group</CardTitle>
+            <Field component={TextField} label="Name" name="name" disabled={isSubmitting} fullWidth />
+            <Box>
+              <Button type="submit" variant="contained">
+                Save
+              </Button>
+            </Box>
+          </FormLayout>
         </Form>
       )}
     </Formik>
