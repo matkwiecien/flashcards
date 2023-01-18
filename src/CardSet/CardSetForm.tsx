@@ -1,16 +1,13 @@
 import { Button } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-mui';
 import * as yup from 'yup';
+import { CardSet } from './interfaces';
 
 const CardSetSchema = yup.object().shape({
   name: yup.string().required('Please enter name'),
 });
-
-type CardSet = {
-  name: string;
-  createdAt: Date;
-};
 
 type CardSetFormProp = {
   onSubmit: (cardSet: CardSet) => void;
@@ -27,7 +24,8 @@ const CardSetForm = ({ onSubmit }: CardSetFormProp) => {
         const currentDateTime = new Date(Date.now());
         onSubmit({
           name: values.name,
-          createdAt: currentDateTime,
+          createdAt: currentDateTime.toISOString(),
+          id: uuidv4(),
         });
         setSubmitting(false);
         resetForm();

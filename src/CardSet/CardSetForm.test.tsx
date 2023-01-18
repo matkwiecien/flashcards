@@ -4,6 +4,10 @@ import CardSetForm from './CardSetForm';
 import { vi } from 'vitest';
 
 describe('Store data', () => {
+  vi.mock('uuid', () => {
+    return { v4: () => '12345' };
+  });
+
   beforeEach(() => {
     vi.useFakeTimers({
       toFake: ['Date'],
@@ -51,8 +55,9 @@ describe('Store data', () => {
 
     await waitFor(() => {
       expect(mock).toBeCalledWith({
+        id: '12345',
         name: 'test set',
-        createdAt: currentDateTime,
+        createdAt: currentDateTime.toISOString(),
       });
     });
 

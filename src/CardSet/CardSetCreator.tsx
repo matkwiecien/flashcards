@@ -1,4 +1,5 @@
 import { useSubmit } from 'react-router-dom';
+
 import CardSetForm from './CardSetForm';
 
 const CardSetCreator = () => {
@@ -6,7 +7,7 @@ const CardSetCreator = () => {
   return (
     <CardSetForm
       onSubmit={(cardSet) => {
-        submit({ ...cardSet, createdAt: cardSet.createdAt.toISOString() }, { method: 'post' });
+        submit(cardSet, { method: 'post' });
       }}
     />
   );
