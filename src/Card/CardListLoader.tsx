@@ -1,4 +1,4 @@
-import CardList from './CardList';
+import CardList from '../CardSet/CardList';
 import { useLoaderData } from 'react-router-dom';
 import { Card } from './interfaces';
 
