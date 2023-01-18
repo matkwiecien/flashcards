@@ -4,7 +4,12 @@ import CardSetCreator from './CardSet/CardSetCreator';
 import CardSetDetailLoader from './CardSet/CardSetDetailLoader';
 import { createCardSet } from './CardSet/CardSetActions';
 import { loadCardSet } from './CardSet/CardSetLoaders';
+
+import { createCard } from './Card/CardAction';
+
 import { CardSet } from './CardSet/interfaces';
+import CardCreator from './Card/CardCreator';
+import { Card } from './Card/interfaces';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +37,23 @@ const router = createBrowserRouter([
       return cardSet;
     },
     element: <CardSetDetailLoader />,
+  },
+  {
+    path: 'card-set/:cardSetId/card',
+    element: <CardCreator />,
+    action: async ({ request, params }) => {
+      const { cardSetId } = params;
+      if (!cardSetId) {
+        throw new Response('Not Found', { status: 404 });
+      }
+
+      const formData = await request.formData();
+      const values = Object.fromEntries(formData) as Card;
+
+      createCard(cardSetId, values);
+
+      return redirect(`/card-set/${cardSetId}`);
+    },
   },
 ]);
 
