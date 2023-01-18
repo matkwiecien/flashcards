@@ -12,8 +12,17 @@ import CardCreator from './Card/CardCreator';
 import { Card } from './Card/interfaces';
 import CardListLoader from './Card/CardListLoader';
 import { loadCards } from './Card/CardLoaders';
+import CardSets from './CardSets/CardSets';
+import { loadCardSets } from './CardSets/CardSetsLoader';
 
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <CardSets />,
+    loader: () => {
+      return loadCardSets();
+    },
+  },
   {
     path: '/card-set',
     element: <CardSetCreator />,
