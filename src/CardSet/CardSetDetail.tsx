@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { CardSet } from './interfaces';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, Outlet } from 'react-router-dom';
 
 type CardSetDetailProps = {
   cardSet: CardSet;
@@ -15,6 +15,7 @@ const CardSetDetail = ({ cardSet }: CardSetDetailProps) => {
       <Button component={RouterLink} to={`${location.pathname}/card`}>
         Add card
       </Button>
+      <Outlet />
     </div>
   );
 };

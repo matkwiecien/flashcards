@@ -10,6 +10,8 @@ import { createCard } from './Card/CardAction';
 import { CardSet } from './CardSet/interfaces';
 import CardCreator from './Card/CardCreator';
 import { Card } from './Card/interfaces';
+import CardListLoader from './Card/CardListLoader';
+import { loadCards } from './Card/CardLoaders';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,21 @@ const router = createBrowserRouter([
       return cardSet;
     },
     element: <CardSetDetailLoader />,
+    children: [
+      {
+        path: '/card-set/:cardSetId',
+        element: <CardListLoader />,
+        loader: ({ params }) => {
+          const { cardSetId } = params;
+          if (!cardSetId) {
+            throw new Response('Not Found', { status: 404 });
+          }
+
+          const cards = loadCards(cardSetId);
+          return cards;
+        },
+      },
+    ],
   },
   {
     path: 'card-set/:cardSetId/card',
